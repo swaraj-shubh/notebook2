@@ -110,6 +110,19 @@ const Register = () => {
             ℹ️ Test admin account: admin@example.com / Admin123
           </p>
         </div>
+        <div className="mt-6 text-center">
+      <p className="text-sm text-gray-500">
+        Looking for the old version?{" "}
+        <a
+          href="https://notebook.shubhh.xyz"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:text-blue-500 font-medium"
+        >
+          Open here ↗
+        </a>
+      </p>
+    </div>
       </div>
     </div>
   )

@@ -8,6 +8,7 @@ import EditNote from '../pages/Dashboard/EditNote'
 import AdminDashboard from '../pages/Admin/AdminDashboard'
 import Users from '../pages/Admin/Users'
 import AdminNotes from '../pages/Admin/Notes'
+import ServerLoading from '@/pages/Loading/ServerLoading'
 
 const PrivateRoute = ({ children, adminOnly = false }) => {
   const { user, loading } = useAuth()
@@ -63,7 +64,8 @@ const AppRoutes = () => {
         </PrivateRoute>
       } />
       
-      <Route path="/" element={<Navigate to="/dashboard" />} />
+      {/* <Route path="/" element={<Navigate to="/dashboard" />} /> */}
+      <Route path="/" element={<ServerLoading />} />
     </Routes>
   )
 }
