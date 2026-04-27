@@ -1,2 +1,2 @@
 # notebook2
-- deployed => https://notebook2.shubhh.xyz
+- deployed => https://notebook2.shubhh.xyz/
