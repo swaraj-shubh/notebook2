@@ -99,7 +99,7 @@ const Users = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       {user.role !== 'admin' && (
                         <button
-                          onClick={() => handleDeleteUser(user._id)}
+                          // onClick={() => handleDeleteUser(user._id)}
                           className="text-red-600 hover:text-red-900"
                         >
                           <FiTrash2 size={18} />

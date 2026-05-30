@@ -134,7 +134,7 @@ const CreateNote = () => {
                       <img src={img} alt={`upload-${idx}`} className="w-full h-24 object-cover rounded" />
                       <button
                         type="button"
-                        onClick={() => removeImage(idx)}
+                        // onClick={() => removeImage(idx)}
                         className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 text-xs opacity-0 group-hover:opacity-100 transition"
                       >
                         ✕
@@ -158,7 +158,7 @@ const CreateNote = () => {
                       <span className="text-sm truncate flex-1">{video.split('/').pop()}</span>
                       <button
                         type="button"
-                        onClick={() => removeVideo(idx)}
+                        // onClick={() => removeVideo(idx)}
                         className="text-red-600 hover:text-red-700"
                       >
                         Remove

@@ -25,17 +25,17 @@ const Notes = () => {
     }
   }
 
-  // const handleDeleteNote = async (noteId) => {
-  //   if (window.confirm('Are you sure you want to delete this note?')) {
-  //     try {
-  //       await api.delete(`/admin/note/${noteId}`)
-  //       toast.success('Note deleted successfully')
-  //       fetchNotes()
-  //     } catch (error) {
-  //       toast.error('Failed to delete note')
-  //     }
-  //   }
-  // }
+  const handleDeleteNote = async (noteId) => {
+    if (window.confirm('Are you sure you want to delete this note?')) {
+      try {
+        await api.delete(`/admin/note/${noteId}`)
+        toast.success('Note deleted successfully')
+        fetchNotes()
+      } catch (error) {
+        toast.error('Failed to delete note')
+      }
+    }
+  }
 
   const handleViewNote = (note) => {
     setSelectedNote(note)
@@ -67,7 +67,7 @@ const Notes = () => {
                       <FiEye size={18} />
                     </button>
                     <button
-                      onClick={() => handleDeleteNote(note._id)}
+                      // onClick={() => handleDeleteNote(note._id)}
                       className="text-red-600 hover:text-red-700"
                     >
                       <FiTrash2 size={18} />
