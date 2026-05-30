@@ -107,11 +107,11 @@ const Register = () => {
         {/* Test credentials info */}
         <div className="mt-4 p-3 bg-blue-50 rounded-lg">
           <p className="text-xs text-blue-600">
-            ℹ️ Test admin account: admin@example.com / Admin123
+            ℹ️ Test admin account: ?????@???????.??? / ????????
           </p>
         </div>
         <div className="mt-6 text-center">
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-gray-500"> 
         Looking for the old version?{" "}
         <a
           href="https://notebook.shubhh.xyz"

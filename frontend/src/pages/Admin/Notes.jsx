@@ -25,17 +25,17 @@ const Notes = () => {
     }
   }
 
-  const handleDeleteNote = async (noteId) => {
-    if (window.confirm('Are you sure you want to delete this note?')) {
-      try {
-        await api.delete(`/admin/note/${noteId}`)
-        toast.success('Note deleted successfully')
-        fetchNotes()
-      } catch (error) {
-        toast.error('Failed to delete note')
-      }
-    }
-  }
+  // const handleDeleteNote = async (noteId) => {
+  //   if (window.confirm('Are you sure you want to delete this note?')) {
+  //     try {
+  //       await api.delete(`/admin/note/${noteId}`)
+  //       toast.success('Note deleted successfully')
+  //       fetchNotes()
+  //     } catch (error) {
+  //       toast.error('Failed to delete note')
+  //     }
+  //   }
+  // }
 
   const handleViewNote = (note) => {
     setSelectedNote(note)

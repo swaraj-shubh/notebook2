@@ -80,7 +80,7 @@ const Login = () => {
         {/* Test credentials */}
         <div className="mt-4 p-3 bg-gray-100 rounded-lg">
           <p className="text-xs text-gray-600">
-            🔑 Test admin: admin@example.com / Admin123
+            🔑 Test admin: [EMAIL_ADDRESS] / [PASSWORD]
           </p>
           <p className="text-xs text-gray-600 mt-1">
             📝 Or register a new account
