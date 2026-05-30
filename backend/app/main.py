@@ -11,7 +11,7 @@ app = FastAPI(title="Notebook API", version="1.0")
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://notebook2-fgqc.vercel.app", "https://notebook2.shubhh.xyz"],  # React dev server
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://notebook2-ebon.vercel.app/","https://notebook2-fgqc.vercel.app", "https://notebook2.shubhh.xyz"],  # React dev server
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
