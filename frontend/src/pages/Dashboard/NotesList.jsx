@@ -4,8 +4,8 @@ const NotesList = ({ notes, onEdit, onDelete, onPreview }) => {
   if (notes.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">No notes yet.</p>
-        <p className="text-gray-400">Click "Create Note" to get started!</p>
+        <p className="text-muted text-lg">No notes yet.</p>
+        <p className="text-muted">Click "Create Note" to get started!</p>
       </div>
     )
   }

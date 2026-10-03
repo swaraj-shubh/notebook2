@@ -8,6 +8,7 @@ import EditNote from '../pages/Dashboard/EditNote'
 import AdminDashboard from '../pages/Admin/AdminDashboard'
 import Users from '../pages/Admin/Users'
 import AdminNotes from '../pages/Admin/Notes'
+import NotFound from '../pages/NotFound'
 import ServerLoading from '@/pages/Loading/ServerLoading'
 
 const PrivateRoute = ({ children, adminOnly = false }) => {
@@ -22,11 +23,18 @@ const PrivateRoute = ({ children, adminOnly = false }) => {
   return children
 }
 
+// login/register: already logged in -> straight to dashboard
+const PublicRoute = ({ children }) => {
+  const { user, loading } = useAuth()
+  if (loading) return null
+  return user ? <Navigate to="/dashboard" replace /> : children
+}
+
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+      <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
       
       <Route path="/dashboard" element={
         <PrivateRoute>
@@ -66,6 +74,7 @@ const AppRoutes = () => {
       
       {/* <Route path="/" element={<Navigate to="/dashboard" />} /> */}
       <Route path="/" element={<ServerLoading />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

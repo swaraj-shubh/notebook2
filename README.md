@@ -16,6 +16,7 @@ A full-stack, modern notebook web application for taking, managing, and organizi
 ## 🛠️ Technology Stack
 
 ### Backend
+
 - **Framework**: FastAPI (Python)
 - **Database**: MongoDB (via Motor AsyncIO)
 - **Validation**: Pydantic
@@ -23,6 +24,7 @@ A full-stack, modern notebook web application for taking, managing, and organizi
 - **Server**: Uvicorn
 
 ### Frontend
+
 - **Framework**: React 19 + Vite
 - **Styling**: Tailwind CSS v4
 - **Components**: Radix UI (shadcn/ui primitives)
@@ -72,6 +74,7 @@ notebook2/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Python 3.10+
 - Node.js 18+
 - MongoDB instance (local or Atlas)
@@ -102,6 +105,7 @@ notebook2/
    ```bash
    uvicorn app.main:app --reload
    ```
+
    The API will be running at [http://localhost:8000](http://localhost:8000). Documentation available at `/docs`.
 
 ### Frontend Setup
@@ -122,13 +126,15 @@ notebook2/
    ```bash
    npm run dev
    ```
+
    The frontend will be accessible at [http://localhost:5173](http://localhost:5173) (or port specified by Vite).
 
 ## 🐳 Docker Support
 
-The backend application provides a `Dockerfile` and a `docker-compose.yml` file, allowing you to easily containerize and run the backend alongside a MongoDB instance. 
+The backend application provides a `Dockerfile` and a `docker-compose.yml` file, allowing you to easily containerize and run the backend alongside a MongoDB instance.
 
 Run the following command from the `backend` directory to spin up the backend:
+
 ```bash
 docker-compose up -d
 ```

@@ -118,10 +118,10 @@ const Home = () => {
 
   const EmptyState = useMemo(() => (
     <div className="text-center py-10" data-testid="empty-state">
-      <p className="text-gray-500 mb-4">No notebooks found.</p>
+      <p className="text-muted mb-4">No notebooks found.</p>
       <button 
         onClick={() => setShowCreateModal(true)}
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-bark active:shadow-clay-press"
       >
         Create your first notebook
       </button>
@@ -131,22 +131,22 @@ const Home = () => {
   const SkeletonLoader = useMemo(() => (
     <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3" data-testid="skeleton-loader">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="border rounded-2xl p-5 bg-white animate-pulse">
-          <div className="h-6 bg-gray-200 rounded w-3/4 mb-4"></div>
-          <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+        <div key={i} className="border border-line p-5 bg-card shadow-clay rounded-3xl animate-pulse">
+          <div className="h-6 bg-soft rounded-2xl w-3/4 mb-4"></div>
+          <div className="h-4 bg-soft rounded-2xl w-full mb-2"></div>
+          <div className="h-4 bg-soft rounded-2xl w-1/2"></div>
         </div>
       ))}
     </div>
   ), []);
 
   const ErrorDisplay = useMemo(() => (
-    <div className="p-4 bg-red-50 border border-red-200 rounded-lg mb-6" data-testid="error-display">
-      <p className="text-red-700 mb-2">Error: {error}</p>
-      <p className="text-red-700 mb-2">or kindly wait for a minute to fetch the data</p>
+    <div className="p-4 bg-danger/15 border border-danger/30 rounded-2xl mb-6" data-testid="error-display">
+      <p className="text-danger-ink mb-2">Error: {error}</p>
+      <p className="text-danger-ink mb-2">or kindly wait for a minute to fetch the data</p>
       <button 
         onClick={fetchNotebooks}
-        className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-bark active:shadow-clay-press"
       >
         Retry
       </button>
@@ -170,7 +170,7 @@ const Home = () => {
       
       <button 
         onClick={() => setShowCreateModal(true)}
-        className="mb-6 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        className="mb-6 px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-bark active:shadow-clay-press"
         aria-label="Create new notebook"
       >
         + Create Notebook
@@ -186,13 +186,13 @@ const Home = () => {
               tabIndex={0}
               role="button"
               aria-label={`Open notebook: ${notebook.title}`}
-              className="border rounded-2xl p-5 shadow-sm hover:shadow-md transition-all bg-white cursor-pointer relative focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+              className="border border-line p-5 shadow-clay-sm hover:shadow-clay-hover transition-all bg-card rounded-3xl cursor-pointer relative focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-50 animate-fade-up duration-300 hover:-translate-y-1 hover:scale-105"
             >
               <h2 className="text-xl font-semibold mb-1 truncate">{notebook.title}</h2>
-              <p className="text-gray-600 mb-2 line-clamp-2">
+              <p className="text-ink-2 mb-2 line-clamp-2">
                 {notebook.description || "No description provided."}
               </p>
-              {/* <p className="text-sm text-gray-500 mb-4">
+              {/* <p className="text-sm text-muted mb-4">
                 Created: {new Date(notebook.created_at).toLocaleString("en-IN")}
               </p> */}
 
@@ -202,7 +202,7 @@ const Home = () => {
                       window.location.href = import.meta.env.VITE_YAHA_KUCH_NAHI_MILEGA;
                 }}
                 disabled={deleteLoading === notebook._id}
-                className="absolute top-2 right-2 mt-2 px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="absolute top-2 right-2 mt-2 px-3 py-1 text-sm disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 rounded-2xl bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-bark active:shadow-clay-press"
                 aria-label={`Delete notebook: ${notebook.title}`}
               >
                 {deleteLoading === notebook._id ? 'Deleting...' : 'Delete'}
@@ -219,7 +219,7 @@ const Home = () => {
           role="dialog" 
           aria-modal="true" 
           aria-labelledby="modal-title"
-          className="fixed inset-0 bg-white z-50 overflow-y-auto p-6"
+          className="fixed inset-0 bg-page/95 backdrop-blur-sm animate-fade-in z-50 overflow-y-auto p-6"
         >
           <div className="max-w-2xl mx-auto mt-20">
             <h2 id="modal-title" className="text-3xl font-bold mb-6">Create New Notebook</h2>
@@ -233,11 +233,11 @@ const Home = () => {
               placeholder="Enter notebook title"
               value={newNotebook.title}
               onChange={(e) => setNewNotebook({...newNotebook, title: e.target.value})}
-              className="w-full border p-3 rounded mb-4 text-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full p-3 mb-4 text-lg bg-field text-ink rounded-2xl shadow-clay-in focus:outline-none focus:ring-2 focus:ring-accent placeholder:text-muted"
               maxLength={100}
               required
             />
-            <div className="text-sm text-gray-500 mb-6 text-right">
+            <div className="text-sm text-muted mb-6 text-right">
               {newNotebook.title.length}/100 characters
             </div>
             
@@ -249,24 +249,24 @@ const Home = () => {
               placeholder="Enter notebook description"
               value={newNotebook.description}
               onChange={(e) => setNewNotebook({...newNotebook, description: e.target.value})}
-              className="w-full border p-3 rounded mb-4 text-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full p-3 mb-4 text-lg bg-field text-ink rounded-2xl shadow-clay-in focus:outline-none focus:ring-2 focus:ring-accent placeholder:text-muted"
               rows="4"
               maxLength={500}
             />
-            <div className="text-sm text-gray-500 mb-8 text-right">
+            <div className="text-sm text-muted mb-8 text-right">
               {newNotebook.description.length}/500 characters
             </div>
             
             <div className="flex justify-end gap-3">
               <button 
                 onClick={() => setShowCreateModal(false)}
-                className="px-6 py-3 bg-gray-300 rounded-lg hover:bg-gray-400 text-lg transition-colors"
+                className="px-6 py-3 text-lg relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press"
               >
                 Cancel
               </button>
               <button 
                 onClick={createNotebook}
-                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 text-lg transition-colors"
+                className="px-6 py-3 text-lg relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-bark active:shadow-clay-press"
                 disabled={!newNotebook.title.trim()}
               >
                 Create Notebook
@@ -276,7 +276,7 @@ const Home = () => {
           
           <button
             onClick={() => setShowCreateModal(false)}
-            className="absolute top-4 right-6 text-gray-600 hover:text-black text-xl font-bold p-2 rounded-full hover:bg-gray-100 transition-colors"
+            className="absolute top-4 right-6 text-ink-2 text-xl p-2 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink"
             aria-label="Close modal"
           >
             ✕

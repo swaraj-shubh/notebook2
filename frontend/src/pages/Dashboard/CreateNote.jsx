@@ -74,18 +74,18 @@ const CreateNote = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Navbar />
       <Sidebar />
       
-      <div className="ml-64 p-8">
+      <div className="md:ml-70 animate-fade-up p-4 pb-24 md:p-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800">Create New Note</h1>
+            <h1 className="text-3xl font-bold text-ink">Create New Note</h1>
             <button
               type="button"
               onClick={() => setShowPreview(true)}
-              className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200 flex items-center space-x-2"
+              className="px-4 py-2 flex items-center space-x-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press"
             >
               <FiEye />
               <span>Preview</span>
@@ -94,7 +94,7 @@ const CreateNote = () => {
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-ink-2 mb-2">
                 Title *
               </label>
               <input
@@ -102,13 +102,13 @@ const CreateNote = () => {
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 focus:border-transparent bg-field text-ink rounded-2xl shadow-clay-in focus:outline-none focus:ring-2 focus:ring-accent placeholder:text-muted"
                 placeholder="Enter note title"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-ink-2 mb-2">
                 Content *
               </label>
               <textarea
@@ -116,26 +116,26 @@ const CreateNote = () => {
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 rows={10}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono"
+                className="w-full px-4 py-2 focus:border-transparent font-mono bg-field text-ink rounded-2xl shadow-clay-in focus:outline-none focus:ring-2 focus:ring-accent placeholder:text-muted"
                 placeholder="Write your note here..."
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-ink-2 mb-2">
                 Images
               </label>
               <FileUpload type="image" onUpload={handleImageUpload} />
               
               {images.length > 0 && (
-                <div className="mt-4 grid grid-cols-4 gap-4">
+                <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {images.map((img, idx) => (
                     <div key={idx} className="relative group">
-                      <img src={img} alt={`upload-${idx}`} className="w-full h-24 object-cover rounded" />
+                      <img src={img} alt={`upload-${idx}`} className="w-full h-24 object-cover rounded-2xl shadow-clay-sm" />
                       <button
                         type="button"
                         // onClick={() => removeImage(idx)}
-                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 text-xs opacity-0 group-hover:opacity-100 transition"
+                        className="absolute top-1 right-1 p-1 text-xs opacity-0 group-hover:opacity-100 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-bark active:shadow-clay-press"
                       >
                         ✕
                       </button>
@@ -146,7 +146,7 @@ const CreateNote = () => {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-ink-2 mb-2">
                 Videos
               </label>
               <FileUpload type="video" onUpload={handleVideoUpload} />
@@ -154,12 +154,12 @@ const CreateNote = () => {
               {videos.length > 0 && (
                 <div className="mt-4 space-y-2">
                   {videos.map((video, idx) => (
-                    <div key={idx} className="flex items-center justify-between bg-gray-100 p-2 rounded">
+                    <div key={idx} className="flex items-center justify-between bg-soft2 p-2 rounded-2xl">
                       <span className="text-sm truncate flex-1">{video.split('/').pop()}</span>
                       <button
                         type="button"
                         // onClick={() => removeVideo(idx)}
-                        className="text-red-600 hover:text-red-700"
+                        className="text-danger-ink relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink p-2"
                       >
                         Remove
                       </button>
@@ -173,14 +173,14 @@ const CreateNote = () => {
               <button
                 type="button"
                 onClick={() => navigate('/dashboard')}
-                className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-200"
+                className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center space-x-2"
+                className="px-4 py-2 flex items-center space-x-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-bark active:shadow-clay-press"
               >
                 <FiSave />
                 <span>{loading ? 'Saving...' : 'Save Note'}</span>

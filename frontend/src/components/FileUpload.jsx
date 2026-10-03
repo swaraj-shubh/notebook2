@@ -34,14 +34,14 @@ const FileUpload = ({ onUpload, type = 'image' }) => {
 
   return (
     <div className="relative">
-      <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 transition">
+      <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-line rounded-2xl cursor-pointer hover:border-accent transition">
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
           {uploading ? (
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent"></div>
           ) : (
             <>
               {type === 'image' ? <FiImage size={32} /> : <FiVideo size={32} />}
-              <p className="mt-2 text-sm text-gray-500">
+              <p className="mt-2 text-sm text-muted">
                 Click to upload {type}
               </p>
             </>
@@ -60,7 +60,7 @@ const FileUpload = ({ onUpload, type = 'image' }) => {
         <div className="absolute top-0 right-0 mt-2 mr-2">
           <button
             onClick={() => setPreview(null)}
-            className="bg-red-500 text-white p-1 rounded-full"
+            className="p-1 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-bark active:shadow-clay-press"
           >
             <FiX size={16} />
           </button>

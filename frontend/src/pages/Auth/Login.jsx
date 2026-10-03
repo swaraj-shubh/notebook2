@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
+import GuestButton from '../../components/GuestButton'
 import toast from 'react-hot-toast'
 
 const Login = () => {
@@ -31,39 +32,39 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="max-w-lg w-full mx-4 space-y-8 p-6 sm:p-10 bg-card shadow-clay rounded-3xl animate-pop-in">
         <div>
-          <h2 className="text-center text-3xl font-bold text-gray-900">Login</h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <h2 className="text-center text-3xl font-bold text-ink">Login</h2>
+          <p className="mt-2 text-center text-sm text-ink-2">
             Or{' '}
-            <Link to="/register" className="text-blue-600 hover:text-blue-500">
-              create a new account
+            <Link to="/register" className="text-link hover:text-link-hover">
+              create a <span className='text-blue-700'>new account</span>
             </Link>
           </p>
         </div>
         
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-sm font-medium text-ink-2">Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="input-field mt-1"
+              className="w-full px-4 py-2 bg-field text-ink rounded-2xl shadow-clay-in focus:outline-none focus:ring-2 focus:ring-accent placeholder:text-muted mt-1"
               placeholder="you@example.com"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
+            <label className="block text-sm font-medium text-ink-2">Password</label>
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="input-field mt-1"
+              className="w-full px-4 py-2 bg-field text-ink rounded-2xl shadow-clay-in focus:outline-none focus:ring-2 focus:ring-accent placeholder:text-muted mt-1"
               placeholder="••••••••"
             />
           </div>
@@ -71,29 +72,31 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary w-full"
+            className="w-full px-8 py-3 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-bark active:shadow-clay-press"
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
         
+        <GuestButton />
+
         {/* Test credentials */}
-        <div className="mt-4 p-3 bg-gray-100 rounded-lg">
-          <p className="text-xs text-gray-600">
+        {/* <div className="mt-4 p-3 bg-soft2 rounded-2xl">
+          <p className="text-xs text-ink-2">
             🔑 Test admin: [EMAIL_ADDRESS] / [PASSWORD]
           </p>
-          <p className="text-xs text-gray-600 mt-1">
+          <p className="text-xs text-ink-2 mt-1">
             📝 Or register a new account
           </p>
-        </div>
+        </div> */}
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted">
             Looking for the old version?{" "}
             <a
               href="https://notebook.shubhh.xyz"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-500 font-medium"
+              className="text-link hover:text-link-hover font-medium"
             >
               Open here ↗
             </a>

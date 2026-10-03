@@ -20,8 +20,8 @@ const Sidebar = () => {
   const items = user?.role === 'admin' ? [...menuItems, ...adminItems] : menuItems
 
   return (
-    <aside className="w-64 bg-white shadow-lg h-screen fixed left-0 top-0 mt-16 flex flex-col justify-between">
-      <nav className="mt-8">
+    <aside className="fixed z-40 bg-card shadow-clay rounded-3xl bottom-3 left-3 right-3 flex md:flex-col md:justify-between md:right-auto md:bottom-auto md:top-22 md:w-64 md:h-[calc(100vh-6.25rem)]">
+      <nav className="flex flex-1 justify-around gap-2 p-2 md:block md:p-0 md:mt-8 md:space-y-2">
         {items.map((item) => {
           const Icon = item.icon
           const isActive = location.pathname === item.path
@@ -30,10 +30,10 @@ const Sidebar = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center space-x-3 px-6 py-3 mx-4 rounded-lg transition duration-200 ${
+              className={`flex flex-col md:flex-row items-center md:space-x-3 px-2 md:px-6 py-2 md:py-3 md:mx-4 rounded-2xl text-xs md:text-base transition-all duration-200 ${
                 isActive
-                  ? 'bg-blue-600 text-white'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  ? 'bg-accent text-on-accent shadow-clay-btn hover:text-bark'
+                  : 'text-ink-2 hover:bg-soft hover:text-hover-ink hover:shadow-clay-sm hover:translate-x-1 max-md:hover:translate-x-0 max-md:hover:-translate-y-0.5'
               }`}
             >
               <Icon size={20} />
@@ -43,9 +43,9 @@ const Sidebar = () => {
         })}
       </nav>
 
-      <div className="mb-24 px-4">
-        <div className="border-t pt-4">
-          <p className="text-xs text-gray-500 mb-2">
+      <div className="hidden md:block mb-24 px-4">
+        <div className="border-t border-line pt-4">
+          <p className="text-xs text-muted mb-2">
             Old version
           </p>
 
@@ -53,7 +53,7 @@ const Sidebar = () => {
             href="https://notebook.shubhh.xyz"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between text-sm text-blue-600 hover:text-blue-500"
+            className="flex items-center justify-between text-sm text-link hover:text-link-hover"
           >
             <span>Open Notebook v1</span>
             <FiExternalLink size={16} />
