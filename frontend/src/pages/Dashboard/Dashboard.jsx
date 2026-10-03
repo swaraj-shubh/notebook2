@@ -8,10 +8,11 @@ import NotePreviewModal from '../../components/NotePreviewModal'
 import { FiPlus } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
+import { cache } from '../../lib/cache'
 
 const Dashboard = () => {
-  const [notes, setNotes] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [notes, setNotes] = useState(cache.get('notes') ?? [])
+  const [loading, setLoading] = useState(!cache.has('notes'))
   const [selectedNote, setSelectedNote] = useState(null)
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
   const navigate = useNavigate()
@@ -24,6 +25,7 @@ const Dashboard = () => {
     try {
       const data = await noteService.getNotes()
       setNotes(data)
+      cache.set('notes', data)
     } catch (error) {
       console.error('Failed to fetch notes:', error)
       toast.error('Failed to load notes')
@@ -69,7 +71,7 @@ const Dashboard = () => {
           <h1 className="text-3xl font-bold text-ink">My Notes</h1>
           <Link
             to="/create-note"
-            className="px-4 py-2 flex items-center space-x-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-bark active:shadow-clay-press"
+            className="px-4 py-2 flex items-center space-x-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-[#eae5d3] active:shadow-clay-press"
           >
             <FiPlus />
             <span>Create Note</span>

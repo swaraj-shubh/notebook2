@@ -34,7 +34,7 @@ const GuestButton = () => {
       <div className="flex items-center gap-3 text-xs text-muted mb-4">
         <span className="flex-1 border-t" /> or <span className="flex-1 border-t" />
       </div>
-      <button type="button" onClick={handleClick} disabled={loading} className="w-full px-8 py-3 flex items-center justify-center gap-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press">
+      <button type="button" onClick={handleClick} disabled={loading} className="w-full px-8 py-3 flex items-center justify-center gap-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:bg-bark hover:text-[#eae5d3] active:shadow-clay-press">
         <FiGlobe /> {loading ? 'Entering...' : 'Continue without login (Global Notebook)'}
       </button>
     </div>

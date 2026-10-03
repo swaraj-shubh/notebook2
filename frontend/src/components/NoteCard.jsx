@@ -22,7 +22,7 @@ const NoteCard = ({ note, onEdit, onDelete, onPreview }) => {
                 e.stopPropagation()
                 onEdit(note)
               }}
-              className="text-link p-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink"
+              className="text-link p-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3]"
               title="Edit"
             >
               <FiEdit2 size={18} />
@@ -32,7 +32,7 @@ const NoteCard = ({ note, onEdit, onDelete, onPreview }) => {
                 e.stopPropagation()
                 onDelete(note._id)
               }}
-              className="text-danger-ink p-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink"
+              className="text-danger-ink p-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3]"
               title="Delete"
             >
               <FiTrash2 size={18} />

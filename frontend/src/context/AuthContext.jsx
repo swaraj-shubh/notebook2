@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 import { authService } from '../services/authService'
+import { cache } from '../lib/cache'
 
 export const AuthContext = createContext()
 
@@ -17,6 +18,7 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const login = async (email, password) => {
+    cache.clear() // never show another user's cached data
     const response = await authService.login(email, password)
     const userData = authService.getCurrentUser()
     setUser(userData)
@@ -30,6 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     authService.logout()
+    cache.clear()
     setUser(null)
   }
 

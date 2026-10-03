@@ -13,7 +13,7 @@
   --backdrop: rgba(234, 229, 211, 0.35);
 }
 :root[data-theme="dark"] {
-  --sd: 16, 17, 13; --sl: 52, 52, 44;
+  --sd: 0, 0, 0; --sl: 46, 47, 40;
   --page: #1c1d18; --card: #2a2b25; --soft: #3c3b32; --soft2: #33332b; --field: #20211c;
   --ink: #eae5d3; --ink-2: #d7c8b0; --muted: #a9ae9a; --line: #3c3b32;
   --link: #b5c69a; --link-hover: #d3dfbb; --hover-ink: #d7c8b0; --danger-ink: #e3a094;
@@ -30,10 +30,10 @@
 
 @theme {
   /* palette: parchment #eae5d3, sand #d7c8b0, olive #b5c69a, sage #858d78, bark #5e5748, olivewood #2a2b25 */
-  --color-accent: #b5c69a; --color-accent-hover: #a1b583; --color-on-accent: #2a2b25;
+  --color-accent: #b5c69a; --color-accent-hover: #5f6b4c; --color-on-accent: #2a2b25;
   --color-bark: #5e5748; --color-olivewood: #2a2b25;
-  --color-danger: #b4533f; --color-danger-soft: #e3bfb2;
-  --color-success: #7d8a68; --color-success-soft: #cfd8bd;
+  --color-danger: #b4533f; --color-danger-soft: #7f3a2d;
+  --color-success: #7d8a68; --color-success-soft: #4a5439;
 
   /* clay shadows */
   --shadow-clay: 10px 10px 22px rgba(var(--sd), 0.28), -8px -8px 18px rgba(var(--sl), 0.95),

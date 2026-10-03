@@ -4,10 +4,11 @@ import Navbar from '../../components/Navbar'
 import Sidebar from '../../components/Sidebar'
 import { FiTrash2, FiEye } from 'react-icons/fi'
 import toast from 'react-hot-toast'
+import { cache } from '../../lib/cache'
 
 const Notes = () => {
-  const [notes, setNotes] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [notes, setNotes] = useState(cache.get('admin-notes') ?? [])
+  const [loading, setLoading] = useState(!cache.has('admin-notes'))
   const [selectedNote, setSelectedNote] = useState(null)
 
   useEffect(() => {
@@ -18,6 +19,7 @@ const Notes = () => {
     try {
       const response = await api.get('/admin/notes')
       setNotes(response.data)
+      cache.set('admin-notes', response.data)
     } catch (error) {
       console.error('Failed to fetch notes:', error)
     } finally {
@@ -62,13 +64,13 @@ const Notes = () => {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => handleViewNote(note)}
-                      className="text-link relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink p-2"
+                      className="text-link relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3] p-2"
                     >
                       <FiEye size={18} />
                     </button>
                     <button
                       // onClick={() => handleDeleteNote(note._id)}
-                      className="text-danger-ink relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink p-2"
+                      className="text-danger-ink relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3] p-2"
                     >
                       <FiTrash2 size={18} />
                     </button>
@@ -94,7 +96,7 @@ const Notes = () => {
               <h2 className="text-2xl font-bold">{selectedNote.title}</h2>
               <button
                 onClick={() => setSelectedNote(null)}
-                className="text-muted relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink p-2"
+                className="text-muted relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3] p-2"
               >
                 ✕
               </button>

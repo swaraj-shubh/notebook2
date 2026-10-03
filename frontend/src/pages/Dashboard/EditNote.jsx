@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar'
 import Sidebar from '../../components/Sidebar'
 import { FiSave, FiEye, FiTrash2 } from 'react-icons/fi'
 import toast from 'react-hot-toast'
+import { cache } from '../../lib/cache'
 
 const EditNote = () => {
   const { id } = useParams()
@@ -26,7 +27,7 @@ const EditNote = () => {
 
   const fetchNote = async () => {
     try {
-      const notes = await noteService.getNotes()
+      const notes = cache.get('notes') ?? await noteService.getNotes()
       const note = notes.find(n => n._id === id)
       if (note) {
         setTitle(note.title)
@@ -128,7 +129,7 @@ const EditNote = () => {
               <button
                 type="button"
                 onClick={() => setShowPreview(true)}
-                className="px-4 py-2 flex items-center space-x-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press"
+                className="px-4 py-2 flex items-center space-x-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:bg-bark hover:text-[#eae5d3] active:shadow-clay-press"
               >
                 <FiEye />
                 <span>Preview</span>
@@ -179,7 +180,7 @@ const EditNote = () => {
                       <button
                         type="button"
                         // onClick={() => removeImage(idx)}
-                        className="absolute top-1 right-1 p-1 text-xs opacity-0 group-hover:opacity-100 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-bark active:shadow-clay-press"
+                        className="absolute top-1 right-1 p-1 text-xs opacity-0 group-hover:opacity-100 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-[#eae5d3] active:shadow-clay-press"
                       >
                         ✕
                       </button>
@@ -203,7 +204,7 @@ const EditNote = () => {
                       <button
                         type="button"
                         // onClick={() => removeVideo(idx)}
-                        className="text-danger-ink relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink p-2"
+                        className="text-danger-ink relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3] p-2"
                       >
                         Remove
                       </button>
@@ -217,14 +218,14 @@ const EditNote = () => {
               <button
                 type="button"
                 onClick={() => navigate('/dashboard')}
-                className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press"
+                className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:bg-bark hover:text-[#eae5d3] active:shadow-clay-press"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={saving}
-                className="px-4 py-2 flex items-center space-x-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-bark active:shadow-clay-press"
+                className="px-4 py-2 flex items-center space-x-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-[#eae5d3] active:shadow-clay-press"
               >
                 <FiSave />
                 <span>{saving ? 'Saving...' : 'Save Changes'}</span>

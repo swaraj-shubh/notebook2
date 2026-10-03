@@ -60,7 +60,7 @@ const FileUpload = ({ onUpload, type = 'image' }) => {
         <div className="absolute top-0 right-0 mt-2 mr-2">
           <button
             onClick={() => setPreview(null)}
-            className="p-1 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-bark active:shadow-clay-press"
+            className="p-1 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-[#eae5d3] active:shadow-clay-press"
           >
             <FiX size={16} />
           </button>

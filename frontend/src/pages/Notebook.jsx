@@ -191,7 +191,7 @@ const Notebook = () => {
       <p className="text-danger-ink mb-2">Error: {error}</p>
       <button 
         onClick={fetchNotebook}
-        className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-bark active:shadow-clay-press"
+        className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-[#eae5d3] active:shadow-clay-press"
       >
         Retry
       </button>
@@ -212,7 +212,7 @@ const Notebook = () => {
       <div className="p-6">
         <button 
           onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-ink-2 mb-6 group relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink p-2"
+          className="flex items-center gap-2 text-ink-2 mb-6 group relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3] p-2"
         >
           <span className="text-xl group-hover:-translate-x-1 transition-transform">←</span>
           <span className="font-medium">All Notebooks</span>
@@ -228,7 +228,7 @@ const Notebook = () => {
     <div className="p-6">
       <button 
         onClick={() => navigate('/')}
-        className="flex items-center gap-2 text-ink-2 mb-6 group relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink p-2"
+        className="flex items-center gap-2 text-ink-2 mb-6 group relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3] p-2"
         aria-label="Go back to all notebooks"
       >
         <span className="text-xl group-hover:-translate-x-1 transition-transform">←</span>
@@ -245,7 +245,7 @@ const Notebook = () => {
         <h2 className="text-2xl font-semibold">🗒️ Notes</h2>
         <button 
           onClick={() => setShowCreateNoteModal(true)}
-          className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-bark active:shadow-clay-press"
+          className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-[#eae5d3] active:shadow-clay-press"
           aria-label="Add new note"
         >
           + Add New Note
@@ -296,7 +296,7 @@ const Notebook = () => {
           <p className="text-muted italic mb-4">No notes in this notebook yet.</p>
           <button 
             onClick={() => setShowCreateNoteModal(true)}
-            className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-bark active:shadow-clay-press"
+            className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-[#eae5d3] active:shadow-clay-press"
           >
             Create your first note
           </button>
@@ -312,7 +312,7 @@ const Notebook = () => {
         >
           <button
             onClick={() => setSelectedNote(null)}
-            className="absolute top-4 right-6 text-ink-2 hover:cursor-pointer text-xl p-2 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink"
+            className="absolute top-4 right-6 text-ink-2 hover:cursor-pointer text-xl p-2 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3]"
             aria-label="Close note view"
           >
             ✕
@@ -330,7 +330,7 @@ const Notebook = () => {
                     onClick={() => {
                       window.location.href = import.meta.env.VITE_YAHA_KUCH_NAHI_MILEGA;
                     }} 
-                    className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-bark active:shadow-clay-press"
+                    className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-[#eae5d3] active:shadow-clay-press"
                     aria-label="Edit note"
                   >
                     Edit
@@ -341,7 +341,7 @@ const Notebook = () => {
                       window.location.href = import.meta.env.VITE_YAHA_KUCH_NAHI_MILEGA;
                     }}                    
                     disabled={operationLoading}
-                    className="px-4 py-2 disabled:opacity-50 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-bark active:shadow-clay-press"
+                    className="px-4 py-2 disabled:opacity-50 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-[#eae5d3] active:shadow-clay-press"
                     aria-label="Delete note"
                   >
                     {operationLoading ? 'Deleting...' : 'Delete'}
@@ -426,14 +426,14 @@ const Notebook = () => {
               <div className="flex justify-end gap-3">
                 <button
                   onClick={() => setEditMode(false)}
-                  className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press"
+                  className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:bg-bark hover:text-[#eae5d3] active:shadow-clay-press"
                   disabled={operationLoading}
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSave}
-                  className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-bark active:shadow-clay-press"
+                  className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-[#eae5d3] active:shadow-clay-press"
                   disabled={operationLoading || !editData.title.trim()}
                 >
                   {operationLoading ? 'Saving...' : 'Save'}
@@ -453,7 +453,7 @@ const Notebook = () => {
         >
           <button
             onClick={() => setShowCreateNoteModal(false)}
-            className="absolute top-4 right-6 text-ink-2 text-xl p-2 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink"
+            className="absolute top-4 right-6 text-ink-2 text-xl p-2 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3]"
             aria-label="Close create note modal"
           >
             ✕
@@ -506,14 +506,14 @@ const Notebook = () => {
             <div className="flex justify-end gap-3">
               <button 
                 onClick={() => setShowCreateNoteModal(false)}
-                className="px-6 py-3 text-lg relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press"
+                className="px-6 py-3 text-lg relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:bg-bark hover:text-[#eae5d3] active:shadow-clay-press"
                 disabled={operationLoading}
               >
                 Cancel
               </button>
               <button 
                 onClick={createNote}
-                className="px-6 py-3 text-lg relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-bark active:shadow-clay-press"
+                className="px-6 py-3 text-lg relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-[#eae5d3] active:shadow-clay-press"
                 disabled={operationLoading || !newNote.title.trim()}
               >
                 {operationLoading ? 'Creating...' : 'Create Note'}

@@ -4,10 +4,11 @@ import Navbar from '../../components/Navbar'
 import Sidebar from '../../components/Sidebar'
 import { FiTrash2, FiShield, FiUser } from 'react-icons/fi'
 import toast from 'react-hot-toast'
+import { cache } from '../../lib/cache'
 
 const Users = () => {
-  const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [users, setUsers] = useState(cache.get('users') ?? [])
+  const [loading, setLoading] = useState(!cache.has('users'))
 
   useEffect(() => {
     fetchUsers()
@@ -17,6 +18,7 @@ const Users = () => {
     try {
       const response = await api.get('/admin/users')
       setUsers(response.data)
+      cache.set('users', response.data)
     } catch (error) {
       console.error('Failed to fetch users:', error)
     } finally {
@@ -100,7 +102,7 @@ const Users = () => {
                       {user.role !== 'admin' && (
                         <button
                           // onClick={() => handleDeleteUser(user._id)}
-                          className="text-danger-ink relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink p-2"
+                          className="text-danger-ink relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3] p-2"
                         >
                           <FiTrash2 size={18} />
                         </button>

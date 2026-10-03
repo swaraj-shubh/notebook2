@@ -25,7 +25,7 @@ const Navbar = () => {
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/dashboard" className="flex items-center gap-2 px-3 py-2 rounded-2xl hover:bg-soft hover:text-hover-ink transition-all duration-200">
+            <Link to="/dashboard" className="flex items-center gap-2 px-3 py-2 rounded-2xl hover:bg-bark hover:text-[#eae5d3] transition-all duration-200">
               <img 
                 src="/notebook.png" 
                 alt="Notebook Logo" 
@@ -39,7 +39,7 @@ const Navbar = () => {
             {user?.role === 'admin' && (
               <Link
                 to="/admin"
-                className="flex items-center gap-1.5 px-3 py-2 rounded-2xl text-ink-2 hover:text-hover-ink hover:bg-soft hover:shadow-clay-sm hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-2xl text-ink-2 hover:bg-bark hover:text-[#eae5d3] hover:shadow-clay-sm hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
               >
                 <FiShield />
                 <span className="hidden sm:inline">Admin</span>
@@ -53,7 +53,7 @@ const Navbar = () => {
 
             <button
               onClick={toggleTheme}
-              className="relative overflow-hidden flex items-center cursor-pointer p-2 rounded-xl text-ink-2 hover:text-hover-ink hover:bg-soft hover:shadow-clay-sm hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
+              className="relative overflow-hidden flex items-center cursor-pointer p-2 rounded-xl text-ink-2 hover:bg-bark hover:text-[#eae5d3] hover:shadow-clay-sm hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
               title={dark ? 'Switch to light mode' : 'Switch to dark mode'}
               aria-label="Toggle theme"
             >
@@ -62,7 +62,7 @@ const Navbar = () => {
 
             <button
               onClick={handleLogout}
-              className="relative overflow-hidden flex items-center gap-1.5 px-3 py-2 rounded-2xl font-semibold cursor-pointer bg-[#d9776a] text-black shadow-clay-btn hover:bg-[#e08a7e] hover:text-black hover:-translate-y-0.5 active:scale-95 active:shadow-clay-press transition-all duration-200"
+              className="relative overflow-hidden flex items-center gap-1.5 px-3 py-2 rounded-2xl font-semibold cursor-pointer bg-[#d9776a] text-black shadow-clay-btn hover:bg-[#8f3f33] hover:text-[#eae5d3] hover:-translate-y-0.5 active:scale-95 active:shadow-clay-press transition-all duration-200"
             >
               <FiLogOut />
               <span className="hidden sm:inline">Logout</span>

@@ -86,7 +86,7 @@ const NotePreviewModal = ({ note, isOpen, onClose }) => {
                     <div key={idx} className="space-y-2 relative">
                       <button
                         onClick={() => setZoom({ type: 'video', src: video })}
-                        className="absolute top-2 right-2 z-10 p-2 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press"
+                        className="absolute top-2 right-2 z-10 p-2 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full bg-soft text-ink-2 shadow-clay-btn hover:bg-bark hover:text-[#eae5d3] active:shadow-clay-press"
                         title="Full screen"
                       >
                         <FiMaximize2 size={16} />
@@ -126,7 +126,7 @@ const NotePreviewModal = ({ note, isOpen, onClose }) => {
           <div className="px-6 py-3 bg-soft2 border-t border-line rounded-b-lg">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-sm focus:outline-none relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press"
+              className="px-4 py-2 text-sm focus:outline-none relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:bg-bark hover:text-[#eae5d3] active:shadow-clay-press"
             >
               Close
             </button>

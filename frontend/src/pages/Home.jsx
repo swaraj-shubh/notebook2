@@ -121,7 +121,7 @@ const Home = () => {
       <p className="text-muted mb-4">No notebooks found.</p>
       <button 
         onClick={() => setShowCreateModal(true)}
-        className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-bark active:shadow-clay-press"
+        className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-[#eae5d3] active:shadow-clay-press"
       >
         Create your first notebook
       </button>
@@ -146,7 +146,7 @@ const Home = () => {
       <p className="text-danger-ink mb-2">or kindly wait for a minute to fetch the data</p>
       <button 
         onClick={fetchNotebooks}
-        className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-bark active:shadow-clay-press"
+        className="px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-[#eae5d3] active:shadow-clay-press"
       >
         Retry
       </button>
@@ -170,7 +170,7 @@ const Home = () => {
       
       <button 
         onClick={() => setShowCreateModal(true)}
-        className="mb-6 px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-bark active:shadow-clay-press"
+        className="mb-6 px-4 py-2 relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-accent text-on-accent shadow-clay-btn hover:bg-accent-hover hover:text-[#eae5d3] active:shadow-clay-press"
         aria-label="Create new notebook"
       >
         + Create Notebook
@@ -202,7 +202,7 @@ const Home = () => {
                       window.location.href = import.meta.env.VITE_YAHA_KUCH_NAHI_MILEGA;
                 }}
                 disabled={deleteLoading === notebook._id}
-                className="absolute top-2 right-2 mt-2 px-3 py-1 text-sm disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 rounded-2xl bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-bark active:shadow-clay-press"
+                className="absolute top-2 right-2 mt-2 px-3 py-1 text-sm disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 rounded-2xl bg-danger text-white shadow-clay-btn hover:bg-danger-soft hover:text-[#eae5d3] active:shadow-clay-press"
                 aria-label={`Delete notebook: ${notebook.title}`}
               >
                 {deleteLoading === notebook._id ? 'Deleting...' : 'Delete'}
@@ -260,13 +260,13 @@ const Home = () => {
             <div className="flex justify-end gap-3">
               <button 
                 onClick={() => setShowCreateModal(false)}
-                className="px-6 py-3 text-lg relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:text-hover-ink active:shadow-clay-press"
+                className="px-6 py-3 text-lg relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-soft text-ink-2 shadow-clay-btn hover:bg-bark hover:text-[#eae5d3] active:shadow-clay-press"
               >
                 Cancel
               </button>
               <button 
                 onClick={createNotebook}
-                className="px-6 py-3 text-lg relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-bark active:shadow-clay-press"
+                className="px-6 py-3 text-lg relative overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-2xl bg-success text-white shadow-clay-btn hover:bg-success-soft hover:text-[#eae5d3] active:shadow-clay-press"
                 disabled={!newNotebook.title.trim()}
               >
                 Create Notebook
@@ -276,7 +276,7 @@ const Home = () => {
           
           <button
             onClick={() => setShowCreateModal(false)}
-            className="absolute top-4 right-6 text-ink-2 text-xl p-2 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full rounded-xl hover:bg-soft hover:shadow-clay-sm hover:text-hover-ink"
+            className="absolute top-4 right-6 text-ink-2 text-xl p-2 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full rounded-xl hover:bg-bark hover:shadow-clay-sm hover:text-[#eae5d3]"
             aria-label="Close modal"
           >
             ✕

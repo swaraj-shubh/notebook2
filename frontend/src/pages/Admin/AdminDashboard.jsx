@@ -3,10 +3,11 @@ import api from '../../services/api'
 import Navbar from '../../components/Navbar'
 import Sidebar from '../../components/Sidebar'
 import { FiUsers, FiFileText, FiActivity } from 'react-icons/fi'
+import { cache } from '../../lib/cache'
 
 const AdminDashboard = () => {
-  const [stats, setStats] = useState({ total_users: 0, total_notes: 0 })
-  const [loading, setLoading] = useState(true)
+  const [stats, setStats] = useState(cache.get('stats') ?? { total_users: 0, total_notes: 0 })
+  const [loading, setLoading] = useState(!cache.has('stats'))
 
   useEffect(() => {
     fetchStats()
@@ -16,6 +17,7 @@ const AdminDashboard = () => {
     try {
       const response = await api.get('/admin/stats')
       setStats(response.data)
+      cache.set('stats', response.data)
     } catch (error) {
       console.error('Failed to fetch stats:', error)
     } finally {
