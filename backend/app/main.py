@@ -1,41 +1,84 @@
-from fastapi import FastAPI
+import time
+import uuid
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.responses import JSONResponse
+
 from app.api.v1.router import api_router
-from app.core.logging import setup_logging
-from app.db.init_db import create_admin
+from app.core.config import settings
+from app.core.exceptions import register_exception_handlers
+from app.core.logging import logger, setup_logging
+from app.db import database
+from app.db.init_db import bootstrap_users
 
 setup_logging()
 
-app = FastAPI(title="Notebook API", version="1.0")
 
-# Add CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://notebook2-ebon.vercel.app/","https://notebook2-fgqc.vercel.app", "https://notebook2.shubhh.xyz"],  # React dev server
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await database.init_indexes()
+    await bootstrap_users()
+    logger.info("Notebook API started (env=%s)", settings.ENVIRONMENT)
+    yield
+    await database.close()
+
+
+app = FastAPI(
+    title="Notebook API",
+    version="2.0",
+    description="Notes with image/video attachments, JWT auth and an admin panel.",
+    lifespan=lifespan,
+    docs_url="/docs" if settings.ENABLE_DOCS else None,
+    redoc_url=None,
+    openapi_url="/openapi.json" if settings.ENABLE_DOCS else None,
 )
 
-print("\n ✅ API initialized successfully")
-print(" ✅ API is running at : http://localhost:8000")
-print(" ✅ API documentation available at : http://localhost:8000/docs\n")
+register_exception_handlers(app)
 
-@app.on_event("startup")
-async def startup():
-    await create_admin()
-    
-@app.get("/health")
+app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.cors_origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
+)
+
+
+@app.middleware("http")
+async def request_context(request: Request, call_next):
+    """Request id + access log + basic security headers."""
+    request_id = request.headers.get("x-request-id", uuid.uuid4().hex[:12])
+    start = time.perf_counter()
+    response = await call_next(request)
+    response.headers["X-Request-ID"] = request_id
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    logger.info(
+        "%s %s %s %.0fms rid=%s",
+        request.method,
+        request.url.path,
+        response.status_code,
+        (time.perf_counter() - start) * 1000,
+        request_id,
+    )
+    return response
+
+
+@app.get("/health", tags=["Health"])
 async def health_check():
+    if not await database.ping():
+        return JSONResponse(status_code=503, content={"status": "unhealthy", "database": "unreachable"})
     return {"status": "healthy", "database": "connected"}
-   
-@app.get("/")
+
+
+@app.get("/", tags=["Health"])
 async def root():
-    return {"message": "API Running"}
+    return {"message": "Notebook API", "docs": "/docs"}
+
 
 app.include_router(api_router, prefix="/api/v1")
-
-if __name__ == "__main__":
-    import uvicorn
-    port = int(os.getenv("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)

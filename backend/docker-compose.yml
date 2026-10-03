@@ -1,9 +1,25 @@
-version: '3.8'
-
 services:
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      retries: 5
+
   backend:
     build: .
     ports:
       - "8000:8000"
     env_file:
       - .env
+    environment:
+      # Local Mongo from this compose file (overrides MONGO_URI from .env)
+      MONGO_URI: mongodb://mongo:27017
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  mongo-data:

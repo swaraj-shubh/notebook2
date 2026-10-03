@@ -1,33 +1,30 @@
-from app.db.database import user_collection
-from app.core.security import hash_password, verify_password
-from app.utils.token import create_access_token
 from fastapi import HTTPException
+from pymongo.errors import DuplicateKeyError
 
-async def register_user(email: str, password: str):
-    existing = await user_collection.find_one({"email": email})
-    if existing:
-        raise HTTPException(status_code=400, detail="User already exists")
-
-    user = {
-        "email": email,
-        "password": hash_password(password),
-        "role": "user"
-    }
-
-    result = await user_collection.insert_one(user)
-    user["_id"] = str(result.inserted_id)
-
-    return user
+from app.core.config import settings
+from app.core.security import create_access_token, hash_password, verify_password
+from app.db.database import user_collection
 
 
-async def login_user(email: str, password: str):
+async def register_user(email: str, password: str) -> dict:
+    if email == settings.GUEST_EMAIL:
+        raise HTTPException(status_code=409, detail="This email is reserved")
+
+    user = {"email": email, "password": hash_password(password), "role": "user"}
+    try:
+        result = await user_collection.insert_one(user)
+    except DuplicateKeyError:  # unique index makes this race-free
+        raise HTTPException(status_code=409, detail="User already exists") from None
+    return {"_id": str(result.inserted_id), "email": email, "role": "user"}
+
+
+async def login_user(email: str, password: str) -> str:
     user = await user_collection.find_one({"email": email})
-    if not user or not verify_password(password, user["password"]):
-        raise HTTPException(status_code=400, detail="Invalid credentials")
+    ok, new_hash = verify_password(password, user["password"] if user else None)
+    if not user or not ok:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
 
-    token = create_access_token({
-        "sub": str(user["_id"]),
-        "role": user["role"]
-    })
+    if new_hash:  # transparently upgrade legacy pbkdf2 hashes to argon2
+        await user_collection.update_one({"_id": user["_id"]}, {"$set": {"password": new_hash}})
 
-    return token
+    return create_access_token(str(user["_id"]), user["role"])

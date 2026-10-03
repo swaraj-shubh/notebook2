@@ -1,9 +1,11 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, Field
+
 
 class UserResponse(BaseModel):
-    id: str
-    email: EmailStr
-    role: str
+    """Public view of a user. Never includes the password hash."""
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(populate_by_name=True)
+
+    id: str = Field(alias="_id")  # serialised as `_id`, which the frontend expects
+    email: str
+    role: str

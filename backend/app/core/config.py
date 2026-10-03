@@ -1,30 +1,57 @@
-import os
-from dotenv import load_dotenv
+from functools import lru_cache
 
-load_dotenv()
-
-
-class Settings:
-    def __init__(self):
-        self.MONGO_URI = self.get_env("MONGO_URI")
-        self.DB_NAME = self.get_env("DB_NAME")
-        self.SECRET_KEY = self.get_env("SECRET_KEY")
-
-        self.ALGORITHM = os.getenv("ALGORITHM", "HS256")
-        self.ACCESS_TOKEN_EXPIRE_MINUTES = int(
-            os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60)
-        )
-
-        # Cloudinary
-        self.CLOUDINARY_CLOUD_NAME = self.get_env("CLOUDINARY_CLOUD_NAME")
-        self.CLOUDINARY_API_KEY = self.get_env("CLOUDINARY_API_KEY")
-        self.CLOUDINARY_API_SECRET = self.get_env("CLOUDINARY_API_SECRET")
-
-    def get_env(self, key: str):
-        value = os.getenv(key)
-        if not value:
-            raise ValueError(f"❌ Missing environment variable: {key}")
-        return value
+from pydantic import Field, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-settings = Settings()
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    ENVIRONMENT: str = "development"
+
+    MONGO_URI: str
+    DB_NAME: str
+    SECRET_KEY: str = Field(min_length=32)
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+
+    CLOUDINARY_CLOUD_NAME: str
+    CLOUDINARY_API_KEY: str
+    CLOUDINARY_API_SECRET: str
+
+    # comma separated list
+    CORS_ORIGINS: str = (
+        "http://localhost:3000,http://127.0.0.1:3000,"
+        "https://notebook2-ebon.vercel.app,https://notebook2-fgqc.vercel.app,"
+        "https://notebook2.shubhh.xyz"
+    )
+
+    # Bootstrap admin: only created when both are set. No default credentials.
+    ADMIN_EMAIL: str | None = None
+    ADMIN_PASSWORD: str | None = None
+
+    # Shared public "global notebook" account (read/write notes, no uploads).
+    GUEST_EMAIL: str = "unknown@unknown.com"
+    GUEST_PASSWORD: str = "123456"
+
+    MAX_IMAGE_MB: int = 10
+    MAX_VIDEO_MB: int = 100
+    RATE_LIMIT_ENABLED: bool = True
+    ENABLE_DOCS: bool = True
+
+    @field_validator("ADMIN_EMAIL", "GUEST_EMAIL")
+    @classmethod
+    def _lower(cls, v):
+        return v.strip().lower() if v else v
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return [o.strip().rstrip("/") for o in self.CORS_ORIGINS.split(",") if o.strip()]
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()
+
+
+settings = get_settings()

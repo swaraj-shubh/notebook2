@@ -1,21 +1,27 @@
-from fastapi import APIRouter, HTTPException
-from app.schemas.auth import RegisterSchema, LoginSchema
-from app.services.auth_service import register_user, login_user
+from fastapi import APIRouter, Depends
+
+from app.core.rate_limit import rate_limit
+from app.schemas.auth import LoginSchema, RegisterSchema, TokenResponse
+from app.schemas.user import UserResponse
+from app.services.auth_service import login_user, register_user
 
 router = APIRouter()
 
-@router.post("/register")
+
+@router.post(
+    "/register",
+    response_model=UserResponse,
+    status_code=201,
+    dependencies=[Depends(rate_limit(10, 3600))],
+)
 async def register(data: RegisterSchema):
-    try:
-        return await register_user(data.email, data.password)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    return await register_user(data.email, data.password)
 
 
-@router.post("/login")
+@router.post(
+    "/login",
+    response_model=TokenResponse,
+    dependencies=[Depends(rate_limit(10, 60))],
+)
 async def login(data: LoginSchema):
-    try:
-        token = await login_user(data.email, data.password)
-        return {"access_token": token}
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    return TokenResponse(access_token=await login_user(data.email, data.password))

@@ -1,17 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
+
 from app.api.deps import get_current_user
-from app.models.user import User
+from app.schemas.user import UserResponse
 
 router = APIRouter()
 
-@router.get("/me")
-async def get_me(user: User = Depends(get_current_user)):
+
+@router.get("/me", response_model=UserResponse)
+async def get_me(user=Depends(get_current_user)):
     return user
-
-
-@router.get("/")
-async def get_all_users(user: User = Depends(get_current_user)):
-    if user.role != "admin":
-        raise HTTPException(status_code=403, detail="Forbidden")
-
-    return await User.find_all().to_list()

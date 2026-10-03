@@ -1,54 +1,56 @@
-# app/services/note_service.py
-from app.db.database import note_collection
+from datetime import UTC, datetime
+
 from fastapi import HTTPException
-from bson import ObjectId
+from pymongo import ReturnDocument
 
-async def create_note(user_id: str, data):
-    note = {
-        "title": data.title,
-        "content": data.content,
-        "images": data.images,   # ✅ added
-        "videos": data.videos,   # ✅ added
-        "owner_id": user_id
-    }
+from app.api.deps import to_object_id
+from app.db.database import note_collection
+from app.services.cloudinary_service import delete_assets
 
-    result = await note_collection.insert_one(note)
-    note["_id"] = str(result.inserted_id)
+MAX_NOTES_PER_USER = 500
 
+
+def _out(note: dict) -> dict:
+    note["_id"] = str(note["_id"])
     return note
 
-async def get_notes(user_id: str):
-    notes = []
-    cursor = note_collection.find({"owner_id": user_id})
 
-    async for note in cursor:
-        note["_id"] = str(note["_id"])
-        notes.append(note)
+async def create_note(user_id: str, data) -> dict:
+    if await note_collection.count_documents({"owner_id": user_id}) >= MAX_NOTES_PER_USER:
+        raise HTTPException(status_code=400, detail=f"Note limit reached ({MAX_NOTES_PER_USER})")
 
-    return notes
+    now = datetime.now(UTC)
+    note = {**data.model_dump(), "owner_id": user_id, "created_at": now, "updated_at": now}
+    result = await note_collection.insert_one(note)
+    note["_id"] = result.inserted_id
+    return _out(note)
 
 
-async def update_note(note_id: str, user_id: str, data):
-    note = await note_collection.find_one({"_id": ObjectId(note_id)})
+async def get_notes(user_id: str, skip: int, limit: int) -> list[dict]:
+    cursor = note_collection.find({"owner_id": user_id}).sort("_id", -1).skip(skip).limit(limit)
+    return [_out(n) async for n in cursor]
 
-    if not note or note["owner_id"] != user_id:
-        raise HTTPException(status_code=403, detail="Unauthorized")
 
-    update_data = data.dict(exclude_unset=True)
-
-    await note_collection.update_one(
-        {"_id": ObjectId(note_id)},
-        {"$set": update_data}
+async def update_note(note_id: str, user_id: str, data) -> dict:
+    changes = {**data.model_dump(exclude_unset=True), "updated_at": datetime.now(UTC)}
+    # One atomic query scoped to the owner (no read-then-write race).
+    old = await note_collection.find_one_and_update(
+        {"_id": to_object_id(note_id), "owner_id": user_id},
+        {"$set": changes},
+        return_document=ReturnDocument.BEFORE,
     )
+    if not old:
+        raise HTTPException(status_code=404, detail="Note not found")
 
-    return {"message": "Updated"}
+    removed = set(old.get("images", []) + old.get("videos", [])) - set(
+        changes.get("images", old.get("images", [])) + changes.get("videos", old.get("videos", []))
+    )
+    await delete_assets(list(removed))
+    return _out({**old, **changes})
 
-async def delete_note(note_id: str, user_id: str):
-    note = await note_collection.find_one({"_id": ObjectId(note_id)})
 
-    if not note or note["owner_id"] != user_id:
-        raise HTTPException(status_code=403, detail="Unauthorized")
-
-    await note_collection.delete_one({"_id": ObjectId(note_id)})
-
-    return {"message": "Deleted"}
+async def delete_note(note_id: str, user_id: str) -> None:
+    note = await note_collection.find_one_and_delete({"_id": to_object_id(note_id), "owner_id": user_id})
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    await delete_assets(note.get("images", []) + note.get("videos", []))

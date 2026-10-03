@@ -1,86 +1,66 @@
-from fastapi import APIRouter, Depends, HTTPException
-from app.api.deps import get_current_user
-from app.db.database import user_collection, note_collection
-from bson import ObjectId
+from fastapi import APIRouter, Depends, HTTPException, Query, Response
 
-router = APIRouter()
+from app.api.deps import require_admin, to_object_id
+from app.core.logging import logger
+from app.db.database import note_collection, user_collection
+from app.schemas.note import NoteResponse
+from app.schemas.user import UserResponse
+from app.services.cloudinary_service import delete_assets
+
+# Every route here requires an admin.
+router = APIRouter(dependencies=[Depends(require_admin)])
 
 
-def admin_required(user):
-    if user["role"] != "admin":
-        raise HTTPException(status_code=403, detail="Admin only")
-    return user
+def _out(doc: dict) -> dict:
+    doc["_id"] = str(doc["_id"])
+    return doc
 
 
-# 📊 Stats
 @router.get("/stats")
-async def get_stats(user=Depends(get_current_user)):
-    admin_required(user)
-
-    total_users = await user_collection.count_documents({})
-    total_notes = await note_collection.count_documents({})
-
+async def get_stats():
     return {
-        "total_users": total_users,
-        "total_notes": total_notes
+        "total_users": await user_collection.count_documents({}),
+        "total_notes": await note_collection.count_documents({}),
     }
 
 
-# 👤 Get all users
-@router.get("/users")
-async def get_all_users(user=Depends(get_current_user)):
-    admin_required(user)
-
-    users = []
-    cursor = user_collection.find({})
-
-    async for u in cursor:
-        u["_id"] = str(u["_id"])
-        u.pop("password", None)  # 🔐 never expose password
-        users.append(u)
-
-    return users
+@router.get("/users", response_model=list[UserResponse])
+async def get_all_users(skip: int = Query(0, ge=0), limit: int = Query(100, ge=1, le=200)):
+    cursor = user_collection.find({}, {"password": 0}).sort("_id", -1).skip(skip).limit(limit)
+    return [_out(u) async for u in cursor]
 
 
-# 📝 Get all notes
-@router.get("/notes")
-async def get_all_notes(user=Depends(get_current_user)):
-    admin_required(user)
-
-    notes = []
-    cursor = note_collection.find({})
-
-    async for note in cursor:
-        note["_id"] = str(note["_id"])
-        notes.append(note)
-
-    return notes
+@router.get("/notes", response_model=list[NoteResponse])
+async def get_all_notes(skip: int = Query(0, ge=0), limit: int = Query(100, ge=1, le=200)):
+    cursor = note_collection.find({}).sort("_id", -1).skip(skip).limit(limit)
+    return [_out(n) async for n in cursor]
 
 
-# ❌ Delete any user
-@router.delete("/user/{user_id}")
-async def delete_user(user_id: str, user=Depends(get_current_user)):
-    admin_required(user)
+@router.delete("/user/{user_id}", status_code=204)
+async def delete_user(user_id: str, admin=Depends(require_admin)):
+    oid = to_object_id(user_id)
+    if user_id == admin["_id"]:
+        raise HTTPException(status_code=400, detail="You cannot delete your own account")
 
-    result = await user_collection.delete_one({"_id": ObjectId(user_id)})
-
-    if result.deleted_count == 0:
+    target = await user_collection.find_one({"_id": oid})
+    if not target:
         raise HTTPException(status_code=404, detail="User not found")
+    if target["role"] == "admin" and await user_collection.count_documents({"role": "admin"}) <= 1:
+        raise HTTPException(status_code=400, detail="Cannot delete the last admin")
 
-    # also delete their notes (optional but good)
+    await user_collection.delete_one({"_id": oid})
+    async for note in note_collection.find({"owner_id": user_id}):
+        await delete_assets(note.get("images", []) + note.get("videos", []))
     await note_collection.delete_many({"owner_id": user_id})
+    logger.info("admin %s deleted user %s", admin["_id"], user_id)
+    return Response(status_code=204)
 
-    return {"message": "User deleted"}
 
-
-# ❌ Delete any note
-@router.delete("/note/{note_id}")
-async def delete_note(note_id: str, user=Depends(get_current_user)):
-    admin_required(user)
-
-    result = await note_collection.delete_one({"_id": ObjectId(note_id)})
-
-    if result.deleted_count == 0:
+@router.delete("/note/{note_id}", status_code=204)
+async def delete_note(note_id: str, admin=Depends(require_admin)):
+    note = await note_collection.find_one_and_delete({"_id": to_object_id(note_id)})
+    if not note:
         raise HTTPException(status_code=404, detail="Note not found")
-
-    return {"message": "Note deleted"}
+    await delete_assets(note.get("images", []) + note.get("videos", []))
+    logger.info("admin %s deleted note %s", admin["_id"], note_id)
+    return Response(status_code=204)
