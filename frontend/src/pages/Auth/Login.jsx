@@ -82,9 +82,6 @@ const Login = () => {
 
         {/* Test credentials */}
         {/* <div className="mt-4 p-3 bg-soft2 rounded-2xl">
-          <p className="text-xs text-ink-2">
-            🔑 Test admin: [EMAIL_ADDRESS] / [PASSWORD]
-          </p>
           <p className="text-xs text-ink-2 mt-1">
             📝 Or register a new account
           </p>

@@ -39,11 +39,11 @@ const Users = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div>
       <Navbar />
       <Sidebar />
       
-      <div className="md:ml-70 animate-fade-up p-4 pb-24 md:p-8">
+      <div className="md:ml-70 animate-fade-up p-4 pb-32 md:p-7">
         <h1 className="text-3xl font-bold text-ink mb-8">Manage Users</h1>
         
         {loading ? (

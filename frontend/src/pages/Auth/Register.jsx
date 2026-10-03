@@ -26,8 +26,8 @@ const Register = () => {
       return
     }
     
-    if (password.length < 6) {
-      toast.error('Password must be at least 6 characters')
+    if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+      toast.error('Password needs 8+ characters, an uppercase letter and a number')
       return
     }
     
@@ -80,7 +80,7 @@ const Register = () => {
               placeholder="Must be 6+ chars with uppercase & number"
             />
             <p className="text-xs text-muted mt-1">
-              Password must contain at least 6 characters, one uppercase letter and one number
+              Password must contain at least 8 characters, one uppercase letter and one number
             </p>
           </div>
           

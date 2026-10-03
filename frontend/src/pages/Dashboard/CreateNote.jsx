@@ -74,11 +74,11 @@ const CreateNote = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div>
       <Navbar />
       <Sidebar />
       
-      <div className="md:ml-70 animate-fade-up p-4 pb-24 md:p-8">
+      <div className="md:ml-70 animate-fade-up p-4 pb-32 md:p-7">
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-3xl font-bold text-ink">Create New Note</h1>

@@ -106,10 +106,10 @@ const EditNote = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen">
+      <div>
         <Navbar />
         <Sidebar />
-        <div className="md:ml-70 animate-fade-up p-4 pb-24 md:p-8 flex justify-center items-center h-64">
+        <div className="md:ml-70 animate-fade-up p-4 pb-32 md:p-7 flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
         </div>
       </div>
@@ -117,11 +117,11 @@ const EditNote = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div>
       <Navbar />
       <Sidebar />
       
-      <div className="md:ml-70 animate-fade-up p-4 pb-24 md:p-8">
+      <div className="md:ml-70 animate-fade-up p-4 pb-32 md:p-7">
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-3xl font-bold text-ink">Edit Note</h1>
