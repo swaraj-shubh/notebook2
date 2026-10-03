@@ -1,16 +1,25 @@
-<div align="center">
+<img src="frontend/public/notebook.png" alt="Notebook logo" width="72" />
+
+# Notebook 2.0
+
+**A fast, secure, full-stack notes app with image and video attachments.**
+Clay-style UI · light & dark mode · JWT auth · admin panel
+
+[**Live demo →** https://notebook2.shubhh.xyz/](https://notebook2.shubhh.xyz/)
+
+![React](https://img.shields.io/badge/React_19-20232A?logo=react&logoColor=61DAFB) ![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white) ![Tailwind](https://img.shields.io/badge/Tailwind_v4-06B6D4?logo=tailwindcss&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white) ![CI](https://github.com/swaraj-shubh/notebook2/actions/workflows/ci.yml/badge.svg)
 
 ---
 
 ## Screenshots
 
-|                    Dashboard (light)                    |                    Dashboard (dark)                    |                 Mobile                 |
-| :------------------------------------------------------: | :----------------------------------------------------: | :------------------------------------: |
-| ![Dashboard light](docs/screenshots/light.png) | ![Dashboard dark](docs/screenshots/dark.png) | ![Mobile](docs/screenshots/mobile.png) |
+|                    Dashboard (light)                    |                    Dashboard (dark)                    |                 Admin panel                |
+|---|---|---|
+| ![Dashboard light](docs/screenshots/light.png) | ![Dashboard dark](docs/screenshots/dark.png) | ![Admin](docs/screenshots/admin.png) |
 
-|               Note preview               |             Admin panel             |                Login                |
-| :--------------------------------------: | :----------------------------------: | :----------------------------------: |
-| ![Preview](docs/screenshots/preview.png) | ![Admin](docs/screenshots/admin.png) | ![Login](docs/screenshots/login.png) |
+|               Note preview               |             Mobile             |                Login                |
+|---|---|---|
+| ![Preview](docs/screenshots/preview.png) | ![Mobile](docs/screenshots/mobile.png) | ![Login](docs/screenshots/login.png) |
 
 ## What it does
 
@@ -28,7 +37,7 @@ React + Vite (Vercel)  ──HTTPS / JWT──▶  FastAPI (Render, Docker)  ─
 ```
 
 |      | Folder                             | Highlights                                                                   |
-| ---- | ---------------------------------- | ---------------------------------------------------------------------------- |
+|---|---|---|
 | 🎨   | [`frontend/`](frontend/README.md) | React 19, Tailwind v4 design tokens, dark mode, instant page loads via cache |
 | ⚙️ | [`backend/`](backend/README.md)   | Async FastAPI, layered architecture, 25 tests (92% coverage), CI, Docker     |
 

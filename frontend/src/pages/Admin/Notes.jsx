@@ -3,6 +3,7 @@ import api from '../../services/api'
 import { FiTrash2, FiEye } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 import { cache } from '../../lib/cache'
+import MediaItem from '../../components/MediaViewer'
 
 const Notes = () => {
   const [notes, setNotes] = useState(cache.get('admin-notes') ?? [])
@@ -98,9 +99,9 @@ const Notes = () => {
             {selectedNote.images?.length > 0 && (
               <div className="mt-4">
                 <h3 className="font-semibold mb-2">Images:</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {selectedNote.images.map((img, idx) => (
-                    <img key={idx} src={img} alt={`note-${idx}`} className="rounded-2xl shadow-clay-sm" />
+                    <MediaItem key={idx} type="image" src={img} alt={`note-${idx}`} />
                   ))}
                 </div>
               </div>
@@ -108,15 +109,11 @@ const Notes = () => {
             {selectedNote.videos?.length > 0 && (
               <div className="mt-4">
                 <h3 className="font-semibold mb-2">Videos:</h3>
-                <ul className="list-disc list-inside">
+                <div className="space-y-3">
                   {selectedNote.videos.map((video, idx) => (
-                    <li key={idx}>
-                      <a href={video} target="_blank" rel="noopener noreferrer" className="text-link">
-                        Video {idx + 1}
-                      </a>
-                    </li>
+                    <MediaItem key={idx} type="video" src={video} />
                   ))}
-                </ul>
+                </div>
               </div>
             )}
           </div>

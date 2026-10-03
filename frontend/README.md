@@ -2,7 +2,7 @@
 
 A responsive React single-page app with a custom **clay design system**, light/dark themes and instant-feeling navigation.
 
-[**Live demo →**](https://notebook2.shubhh.xyz/)
+[**Live demo →** https://notebook2.shubhh.xyz/](https://notebook2.shubhh.xyz/)
 
 ## Why this frontend is better
 

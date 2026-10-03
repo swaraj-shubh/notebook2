@@ -2,11 +2,7 @@
 
 An async **FastAPI + MongoDB** service for notes with media attachments, JWT authentication and an admin panel, built like a production service: layered code, validated input, rate limits, tests, CI and Docker.
 
-![CI](https://github.com/swaraj-shubh/notebook2/actions/workflows/ci.yml/badge.svg)
-![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-25_passing-brightgreen)
-![Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)
+![CI](https://github.com/swaraj-shubh/notebook2/actions/workflows/ci.yml/badge.svg) ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white) ![Tests](https://img.shields.io/badge/tests-25_passing-brightgreen) ![Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)
 
 ## Why this backend is better
 
@@ -108,7 +104,7 @@ docker compose up --build
 ### Configuration
 
 | Variable | Required | Purpose |
-|---|:---:|---|
+|---|---|---|
 | `MONGO_URI`, `DB_NAME` | ✅ | database connection |
 | `SECRET_KEY` | ✅ | JWT signing, 32+ characters |
 | `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` | ✅ | media storage |

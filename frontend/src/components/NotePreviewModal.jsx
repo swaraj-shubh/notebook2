@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import { FiImage, FiVideo, FiDownload, FiMaximize2 } from 'react-icons/fi'
+import { useEffect } from 'react'
+import { FiImage, FiVideo } from 'react-icons/fi'
+import MediaItem from './MediaViewer'
 
 const NotePreviewModal = ({ note, isOpen, onClose }) => {
-  const [zoom, setZoom] = useState(null) // { type: 'image' | 'video', src }
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -50,26 +50,7 @@ const NotePreviewModal = ({ note, isOpen, onClose }) => {
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {note.images.map((img, idx) => (
-                    <div key={idx} className="relative group">
-                      <img
-                        src={img}
-                        alt={`Preview ${idx + 1}`}
-                        className="w-full h-auto rounded-2xl cursor-zoom-in shadow-clay-sm"
-                        onClick={() => setZoom({ type: 'image', src: img })}
-                        onError={(e) => {
-                          e.target.src = 'https://via.placeholder.com/400x300?text=Image+Not+Found'
-                        }}
-                      />
-                      <a
-                        href={img}
-                        download
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="absolute top-2 right-2 bg-card shadow-clay-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition"
-                      >
-                        <FiDownload size={16} />
-                      </a>
-                    </div>
+                    <MediaItem key={idx} type="image" src={img} alt={`Preview ${idx + 1}`} />
                   ))}
                 </div>
               </div>
@@ -83,32 +64,7 @@ const NotePreviewModal = ({ note, isOpen, onClose }) => {
                 </h4>
                 <div className="space-y-4">
                   {note.videos.map((video, idx) => (
-                    <div key={idx} className="space-y-2 relative">
-                      <button
-                        onClick={() => setZoom({ type: 'video', src: video })}
-                        className="absolute top-2 right-2 z-10 p-2 overflow-hidden font-semibold cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed rounded-full bg-soft text-ink-2 shadow-clay-btn hover:bg-bark hover:text-[#eae5d3] active:shadow-clay-press"
-                        title="Full screen"
-                      >
-                        <FiMaximize2 size={16} />
-                      </button>
-                      <video
-                        controls
-                        className="w-full rounded-2xl shadow-clay"
-                        src={video}
-                      >
-                        Your browser does not support the video tag.
-                      </video>
-                      <a
-                        href={video}
-                        download
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center space-x-1 text-sm text-link hover:text-link-hover"
-                      >
-                        <FiDownload size={14} />
-                        <span>Download video {idx + 1}</span>
-                      </a>
-                    </div>
+                    <MediaItem key={idx} type="video" src={video} />
                   ))}
                 </div>
               </div>
@@ -134,18 +90,6 @@ const NotePreviewModal = ({ note, isOpen, onClose }) => {
         </div>
       </div>
 
-      {zoom && (
-        <div
-          className="fixed inset-0 z-[60] bg-backdrop backdrop-blur-md animate-fade-in flex items-center justify-center p-4"
-          onClick={() => setZoom(null)}
-        >
-          {zoom.type === 'image' ? (
-            <img src={zoom.src} alt="Full screen" className="max-w-full max-h-full rounded-2xl shadow-clay-sm" />
-          ) : (
-            <video src={zoom.src} controls autoPlay className="max-w-full max-h-full rounded-2xl shadow-clay" onClick={(e) => e.stopPropagation()} />
-          )}
-        </div>
-      )}
     </div>
   )
 }
