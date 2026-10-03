@@ -6,8 +6,6 @@ import Dashboard from '../pages/Dashboard/Dashboard'
 import CreateNote from '../pages/Dashboard/CreateNote'
 import EditNote from '../pages/Dashboard/EditNote'
 import AdminDashboard from '../pages/Admin/AdminDashboard'
-import Users from '../pages/Admin/Users'
-import AdminNotes from '../pages/Admin/Notes'
 import NotFound from '../pages/NotFound'
 import ServerLoading from '@/pages/Loading/ServerLoading'
 
@@ -60,18 +58,10 @@ const AppRoutes = () => {
         </PrivateRoute>
       } />
       
-      <Route path="/admin/users" element={
-        <PrivateRoute adminOnly={true}>
-          <Users />
-        </PrivateRoute>
-      } />
-      
-      <Route path="/admin/notes" element={
-        <PrivateRoute adminOnly={true}>
-          <AdminNotes />
-        </PrivateRoute>
-      } />
-      
+      {/* old admin URLs now live as tabs inside /admin */}
+      <Route path="/admin/users" element={<Navigate to="/admin?tab=users" replace />} />
+      <Route path="/admin/notes" element={<Navigate to="/admin?tab=notes" replace />} />
+
       {/* <Route path="/" element={<Navigate to="/dashboard" />} /> */}
       <Route path="/" element={<ServerLoading />} />
       <Route path="*" element={<NotFound />} />

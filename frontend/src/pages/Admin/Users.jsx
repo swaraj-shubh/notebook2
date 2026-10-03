@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 import api from '../../services/api'
-import Navbar from '../../components/Navbar'
-import Sidebar from '../../components/Sidebar'
 import { FiTrash2, FiShield, FiUser } from 'react-icons/fi'
 import toast from 'react-hot-toast'
 import { cache } from '../../lib/cache'
@@ -40,12 +38,6 @@ const Users = () => {
 
   return (
     <div>
-      <Navbar />
-      <Sidebar />
-      
-      <div className="md:ml-70 animate-fade-up p-4 pb-32 md:p-7">
-        <h1 className="text-3xl font-bold text-ink mb-8">Manage Users</h1>
-        
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
@@ -114,7 +106,6 @@ const Users = () => {
             </table>
           </div>
         )}
-      </div>
     </div>
   )
 }

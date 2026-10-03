@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { FiHome, FiPlus, FiList, FiShield, FiExternalLink } from 'react-icons/fi'
+import { FiHome, FiPlus, FiShield, FiExternalLink } from 'react-icons/fi'
 import { useAuth } from '../hooks/useAuth'
 
 const Sidebar = () => {
@@ -12,9 +12,7 @@ const Sidebar = () => {
   ]
 
   const adminItems = [
-    { path: '/admin', icon: FiShield, label: 'Admin Dashboard' },
-    { path: '/admin/users', icon: FiList, label: 'Manage Users' },
-    { path: '/admin/notes', icon: FiList, label: 'Manage Notes' },
+    { path: '/admin', icon: FiShield, label: 'Admin Panel' },
   ]
 
   const items = user?.role === 'admin' ? [...menuItems, ...adminItems] : menuItems
