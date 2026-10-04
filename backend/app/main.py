@@ -1,3 +1,4 @@
+import asyncio
 import time
 import uuid
 from contextlib import asynccontextmanager
@@ -17,10 +18,25 @@ from app.db.init_db import bootstrap_users
 setup_logging()
 
 
+_ready = False
+_ready_lock = asyncio.Lock()
+
+
+async def ensure_ready() -> None:
+    """One-time DB setup. Also called per request because serverless hosts (Vercel) may skip lifespan."""
+    global _ready
+    if _ready:
+        return
+    async with _ready_lock:
+        if not _ready:
+            await database.init_indexes()
+            await bootstrap_users()
+            _ready = True
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await database.init_indexes()
-    await bootstrap_users()
+    await ensure_ready()
     logger.info("Notebook API started (env=%s)", settings.ENVIRONMENT)
     yield
     await database.close()
@@ -53,6 +69,7 @@ async def request_context(request: Request, call_next):
     """Request id + access log + basic security headers."""
     request_id = request.headers.get("x-request-id", uuid.uuid4().hex[:12])
     start = time.perf_counter()
+    await ensure_ready()
     response = await call_next(request)
     response.headers["X-Request-ID"] = request_id
     response.headers["X-Content-Type-Options"] = "nosniff"
